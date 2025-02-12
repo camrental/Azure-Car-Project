@@ -1,0 +1,9 @@
+{
+	"name": "adf-mp-car-project",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e62e6704-1764-4742-83bb-aad092fc2d0b",
+		"tenantId": "27ea6c9a-5f1e-49da-a6be-75efee162c54"
+	}
+}
