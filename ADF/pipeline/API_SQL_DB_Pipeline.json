@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy from API to DB",
+				"name": "Copy from Git to DB",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
