@@ -16,7 +16,7 @@
 			"location": {
 				"type": "HttpServerLocation",
 				"relativeUrl": {
-					"value": "https://raw.githubusercontent.com/camrental/Azure-Car-Project/main/Files/@{dataset().fileName}?token=GHSAT0AAAAAAC63IKEYH6L4ZT75ZLQ5AEY2Z5NRDNQ",
+					"value": "camrental/Azure-Car-Project/refs/heads/main/Files/@{dataset().fileName}",
 					"type": "Expression"
 				}
 			},
