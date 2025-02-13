@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Web1",
+				"name": "Collect Git Files",
 				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
@@ -38,11 +38,11 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "Copy Each File",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Web1",
+						"activity": "Collect Git Files",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -51,7 +51,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@json(activity('Web1').output.Response)\n",
+						"value": "@json(activity('Collect Git Files').output.Response)\n",
 						"type": "Expression"
 					},
 					"isSequential": true,
@@ -273,6 +273,29 @@
 							]
 						}
 					]
+				}
+			},
+			{
+				"name": "Execute DB To Gold",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Copy Each File",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "SQL_DB_Bronze_Pipeline",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
