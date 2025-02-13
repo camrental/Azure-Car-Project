@@ -1,0 +1,8 @@
+Branch_ID,Dealer_ID,Model_ID,Revenue,Units_Sold,Date_ID,Day,Month,Year,BranchName,DealerName,Product_Name
+BR9548,DLR0066,Jee-M16,7800000,2,DT01251,4,6,2020,Velocity Motors,Ford Europe Motors,Jeep
+BR9549,DLR0067,Jee-M17,8900000,1,DT01252,5,6,2020,Urban Motors,Ford UK Motors,Jeep
+BR9550,DLR0068,Jee-M18,9100000,2,DT01253,6,6,2020,AutoSpeed Motors,Ford Japan Motors,Jeep
+BR9668,DLR0069,Jee-M19,25000000,3,DT01254,7,6,2020,Roadster Motors,Ford South Africa Motors,Jeep
+BR9728,DLR0070,Jee-M20,26500000,4,DT01255,8,6,2020,Grand Motors,Ford Germany Motors,Jeep
+XYZ9728,XYZ0065,ZYXM15,25500000,4,DT01256,9,6,2020,DataXtreme Motors,Datafam Dealers,Surprise
+XYZ9729,XYZ0066,ZYXM16,26000000,5,DT01257,10,6,2020,DataFusion Motors,Datafam Dealers,Surprise
