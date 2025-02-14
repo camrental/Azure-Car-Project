@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-mp-car-project"
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"ls_databricks_accessToken": {
+			"value": ""
+		},
+		"ls_datalake_gen2_accountKey": {
+			"value": ""
+		},
+		"ls_http_password": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "mpcarsalesserver.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "carsales"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "adminmp"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"value": "0211-203836-za333ei3"
+		},
+		"ls_datalake_gen2_properties_typeProperties_url": {
+			"value": "https://carmpdatalake.dfs.core.windows.net/"
+		},
+		"ls_http_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/"
+		},
+		"ls_http_properties_typeProperties_userName": {
+			"value": "camrental"
+		},
+		"ls_key_vault_properties_typeProperties_baseUrl": {
+			"value": "https://mpcarprojectkeyvault.vault.azure.net/"
+		}
+	}
+}
