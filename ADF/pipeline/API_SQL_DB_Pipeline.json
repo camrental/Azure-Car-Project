@@ -271,6 +271,314 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "Copy File to Archieve",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "Copy from Git to DB_copy1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "Branch_ID",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Branch_ID",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "Dealer_ID",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Dealer_ID",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "Model_ID",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Model_ID",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "Revenue",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Revenue",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "Units_Sold",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Units_Sold",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "Date_ID",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Date_ID",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "Day",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Day",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "Month",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Month",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "Year",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Year",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "BranchName",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "BranchName",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "DealerName",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "DealerName",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										},
+										{
+											"source": {
+												"name": "Product_Name",
+												"type": "String",
+												"physicalType": "String"
+											},
+											"sink": {
+												"name": "Product_Name",
+												"type": "String",
+												"physicalType": "UTF8"
+											}
+										}
+									],
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_git",
+									"type": "DatasetReference",
+									"parameters": {
+										"fileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_archieve_bronze",
+									"type": "DatasetReference",
+									"parameters": {
+										"SinkFileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "Get SHA of file",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "Copy File to Archieve",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"method": "GET",
+								"url": {
+									"value": "https://api.github.com/repos/camrental/Azure-Car-Project/contents/Files/Sales/@{item().name}",
+									"type": "Expression"
+								},
+								"authentication": {
+									"type": "Basic",
+									"username": "camrental",
+									"password": {
+										"type": "AzureKeyVaultSecret",
+										"store": {
+											"referenceName": "ls_key_vault",
+											"type": "LinkedServiceReference"
+										},
+										"secretName": "gitpass"
+									}
+								}
+							}
+						},
+						{
+							"name": "Delete Git File",
+							"type": "WebActivity",
+							"dependsOn": [
+								{
+									"activity": "Get SHA of file",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"method": "DELETE",
+								"headers": {
+									"accept": {
+										"value": "application/vnd.github+json",
+										"type": "Expression"
+									}
+								},
+								"url": {
+									"value": "https://api.github.com/repos/camrental/Azure-Car-Project/contents/Files/Sales/@{item().name}",
+									"type": "Expression"
+								},
+								"body": {
+									"value": "{\n    \"message\": \"Deleting file from ADF\",\n    \"sha\": \"@{activity('Get SHA of file').output.sha}\"\n}",
+									"type": "Expression"
+								},
+								"authentication": {
+									"type": "Basic",
+									"username": "camrental",
+									"password": {
+										"type": "AzureKeyVaultSecret",
+										"store": {
+											"referenceName": "ls_key_vault",
+											"type": "LinkedServiceReference"
+										},
+										"secretName": "PATgit"
+									}
+								}
+							}
 						}
 					]
 				}
@@ -278,6 +586,8 @@
 			{
 				"name": "Execute DB To Gold",
 				"type": "ExecutePipeline",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Copy Each File",
