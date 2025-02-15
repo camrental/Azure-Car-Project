@@ -1295,8 +1295,6 @@
 					{
 						"name": "Execute DB To Gold",
 						"type": "ExecutePipeline",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Copy Each File",
